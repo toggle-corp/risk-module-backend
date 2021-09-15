@@ -22,6 +22,7 @@ ipython = "*"
 factory-boy = "*"
 drf-writable-nested = "*"
 psycopg2-binary = "==2.9.1"
+requests = "*"
 
 [tool.poetry.dev-dependencies]
 pytest-django = "*"
