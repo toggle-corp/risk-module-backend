@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'django_celery_beat',
+    'corsheaders',
 
     # DJANGO APPS
     'django.contrib.admin',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -196,3 +198,5 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=0),  # This task execute daily at 12 AM (UTC)
     },
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
