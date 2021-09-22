@@ -19,12 +19,14 @@ from django.urls import path
 from django.conf import settings
 
 from earthquake.views import EarthquakeViewSet
+from think_hazard.views import HazardViewSet
 
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 
 router.register(r'earthquake', EarthquakeViewSet, basename='earthquake')
+router.register(r'think-hazard', HazardViewSet, basename='think hazard')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
