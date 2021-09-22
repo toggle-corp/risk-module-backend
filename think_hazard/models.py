@@ -15,12 +15,13 @@ class ThinkHazardCountry(models.Model):
         return f'{self.country} - {self.iso3}'
 
 
-class HazardDetail(models.Model):
+class HazardInformation(models.Model):
     class HazardLevel(models.TextChoices):
         LOW = ' LOW', 'Low'
         VERY_LOW = 'VLO', 'Very Low'
         MEDIUM = 'MED', 'Medium'
         HIGH = 'HIG', 'High'
+        NO_DATA = 'no-data', 'No Data'
 
     class HazardType(models.TextChoices):
         EARTHQUAKE = 'EQ', 'Earthquake'
@@ -47,7 +48,7 @@ class HazardDetail(models.Model):
 
 class Hazard(models.Model):
     country = models.ForeignKey(ThinkHazardCountry, on_delete=models.CASCADE)
-    hazard_details = models.ManyToManyField(HazardDetail, blank=True)
+    hazard_informations = models.ManyToManyField(HazardInformation, blank=True)
 
     def __str__(self):
         return str(self.country)

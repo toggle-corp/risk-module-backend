@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from think_hazard.models import (
     ThinkHazardCountry,
-    HazardDetail,
+    HazardInformation,
     Hazard
 )
 
@@ -12,7 +12,7 @@ class ThinkHazardCountryAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(HazardDetail)
+@admin.register(HazardInformation)
 class HazardDetailAdmin(admin.ModelAdmin):
    pass
 
