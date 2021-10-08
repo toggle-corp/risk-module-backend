@@ -15,6 +15,25 @@ services:
     volumes:
       - redis-data:/redis_data
 
+  pygeoapi_server:
+    image: geopython/pygeoapi:latest
+    volumes:
+      - ./provider/earthquake_rasterio_.py:/pygeoapi/pygeoapi/provider/earthquake_rasterio_.py
+      - ./plugin.py:/pygeoapi/pygeoapi/plugin.py
+      - ./my.config.yml:/pygeoapi/local.config.yml
+      - ./tests/data/earthquake/earthquake_ExpDisp.tif:/pygeoapi/tests/data/earthquake/earthquake_ExpDisp.tif
+      - ./tests/data/earthquake/earthquake_GDP.tif:/pygeoapi/tests/data/earthquake/earthquake_GDP.tif
+      - ./tests/data/earthquake/earthquake_hazMean1.tif:/pygeoapi/tests/data/earthquake/earthquake_hazMean1.tif
+      - ./tests/data/earthquake/earthquake_hazSD1.tif:/pygeoapi/tests/data/earthquake/earthquake_hazSD1.tif
+      - ./tests/data/earthquake/earthquake_HiCIDisp.tif:/pygeoapi/tests/data/earthquake/earthquake_HiCIDisp.tif
+      - ./tests/data/earthquake/earthquake_LowCIDisp.tif:/pygeoapi/tests/data/earthquake/earthquake_LowCIDisp.tif
+      - ./tests/data/earthquake/earthquake_Population.tif:/pygeoapi/tests/data/earthquake/earthquake_Population.tif
+      - ./tests/data/earthquake/earthquake_RWI.tif:/pygeoapi/tests/data/earthquake/earthquake_RWI.tif
+    ports:
+      - "5000:80"
+    environment:
+     - SCRIPT_NAME=/pygeoapi
+
   server:
     build: .
     env_file:
