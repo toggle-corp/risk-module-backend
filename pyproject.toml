@@ -22,6 +22,9 @@ ipython = "*"
 factory-boy = "*"
 drf-writable-nested = "*"
 psycopg2-binary = "==2.9.1"
+requests = "*"
+geopy = "==2.2.0"
+gunicorn = "~=20.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest-django = "*"
