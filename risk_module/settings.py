@@ -39,6 +39,8 @@ ALLOWED_HOSTS = [os.environ.get('DJANGO_ALLOWED_HOST', 'localhost')]
 INSTALLED_APPS = [
     # LOCAL APPS
     'earthquake',
+    'ipc',
+    'oddrin',
 
     # LIBRARIES
     'rest_framework',
