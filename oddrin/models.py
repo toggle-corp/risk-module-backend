@@ -1,8 +1,6 @@
 from django.db import models
-from django.db.models.query_utils import select_related_descend
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from openpyxl.reader.excel import load_workbook
 
 
 class Oddrin(models.Model):
@@ -47,6 +45,7 @@ class Idmc(models.Model):
     class HazardType(models.TextChoices):
         FLOOD = 'flood', 'Flood'
         STORM = 'storm', 'Storm'
+        FOOD_INSECURITY = 'food_insecurity', 'Food Insecurity'
 
     class ConfidenceType(models.TextChoices):
         HIGH = 'high', 'High'
