@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 
 from earthquake.views import EarthquakeViewSet
-from oddrin.views import OddrinViewSet, IdmcViewSet
+from oddrin.views import OddrinViewSet, IdmcViewSet, InformRiskViewSet
 from ipc.views import GlobalDisplacementViewSet
 
 from rest_framework import routers
@@ -30,6 +30,7 @@ router.register(r'earthquake', EarthquakeViewSet, basename='earthquake')
 router.register(r'oddrin-data', OddrinViewSet, basename='oddrin')
 router.register(r'idmc-data', IdmcViewSet, basename='idmc')
 router.register(r'displacement-data', GlobalDisplacementViewSet, basename='global')
+router.register(r'inform-data', InformRiskViewSet, basename='inform')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),

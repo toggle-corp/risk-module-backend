@@ -11,7 +11,9 @@ class Oddrin(models.Model):
         CYCLONE = 'cyclone', 'Cyclone'
         EPIDEMIC = 'epidemic', 'Epidemic'
         FOOD_INSECURITY = 'food_insecurity', 'Food Insecurity'
-        STORM_SURGE = 'storm_surge', 'Storm Surge'
+        STORM = 'storm', 'Storm'
+        DROUGHT = 'drought', 'Drought'
+        TSUNAMI = 'tsunami', 'Tsunami'
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -36,6 +38,10 @@ class Oddrin(models.Model):
     people_exposed = models.IntegerField(verbose_name=_('people exposed'), null=True, blank=True)
     people_displaced = models.IntegerField(verbose_name=_('people displaced'), null=True, blank=True)
     buildings_exposed = models.IntegerField(verbose_name=_('buildings exposed'), null=True, blank=True)
+    file = models.FileField(
+        upload_to='oddrin/', max_length=255,
+        null=True, blank=True, verbose_name=_('file')
+    )
 
     def str(self):
         return f'{self.hazard_title} - {self.hazard_type}'
@@ -103,3 +109,15 @@ class Idmc(models.Model):
 
     def __str__(self):
         return f'{self.country} - {self.hazard_type}'
+
+
+class InformRisk(models.Model):
+    country = models.ForeignKey(
+        'ipc.Country', on_delete=models.CASCADE,
+        verbose_name=_('country'), null=True, blank=True
+    )
+    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=Oddrin.HazardType.choices, blank=True)
+    risk_score = models.FloatField(verbose_name=_('risk_score'), null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.country.name} - {self.hazard_type}'
