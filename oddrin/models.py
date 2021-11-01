@@ -116,8 +116,103 @@ class InformRisk(models.Model):
         'ipc.Country', on_delete=models.CASCADE,
         verbose_name=_('country'), null=True, blank=True
     )
-    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=Oddrin.HazardType.choices, blank=True)
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=Oddrin.HazardType.choices, blank=True
+    )
     risk_score = models.FloatField(verbose_name=_('risk_score'), null=True, blank=True)
 
     def __str__(self):
         return f'{self.country.name} - {self.hazard_type}'
+
+
+class InformRiskSeasonal(models.Model):
+    country = models.ForeignKey(
+        'ipc.Country', on_delete=models.CASCADE,
+        verbose_name=_('country'), null=True, blank=True
+    )
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=Oddrin.HazardType.choices, blank=True
+    )
+    january = models.FloatField(
+        verbose_name=_('january'), null=True, blank=True
+    )
+    february = models.FloatField(
+        verbose_name=_('february'), null=True, blank=True
+    )
+    march = models.FloatField(
+        verbose_name=_('march'), null=True, blank=True
+    )
+    april = models.FloatField(
+        verbose_name=_('april'), null=True, blank=True
+    )
+    may = models.FloatField(
+        verbose_name=_('may'), null=True, blank=True
+    )
+    june = models.FloatField(
+        verbose_name=_('june'), null=True, blank=True
+    )
+    july = models.FloatField(
+        verbose_name=_('july'), null=True, blank=True
+    )
+    august = models.FloatField(
+        verbose_name=_('august'), null=True, blank=True
+    )
+    september = models.FloatField(
+        verbose_name=_('september'), null=True, blank=True
+    )
+    october = models.FloatField(
+        verbose_name=_('october'), null=True, blank=True
+    )
+    november = models.FloatField(
+        verbose_name=_('november'), null=True, blank=True
+    )
+    december = models.FloatField(
+        verbose_name=_('december'), null=True, blank=True
+    )
+
+    def __str__(self):
+        return f'{self.country.name} - {self.hazard_type}'
+
+
+class IdmcSuddenOnset(models.Model):
+    country = models.ForeignKey(
+        'ipc.Country', on_delete=models.CASCADE,
+        verbose_name=_('country'), null=True, blank=True
+    )
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=Oddrin.HazardType.choices, blank=True
+    )
+    annual_average_displacement = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('annual average displacement')
+    )
+    return_period_20_years = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('return period 20 years')
+    )
+    return_period_50_years = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('return period 50 years')
+    )
+    return_period_100_years = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('return period 100 years')
+    )
+    return_period_250_years = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('return period 250 years')
+    )
+    return_period_1000_years = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('return period 1000 years')
+    )
+    return_period_1500_years = models.IntegerField(
+        null=True, blank=True,
+        verbose_name=_('return period 1500 years')
+    )
+
+    def __str__(self):
+        return f'{self.country} - {self.hazard_type}'

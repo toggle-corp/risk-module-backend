@@ -3,16 +3,22 @@ from rest_framework import viewsets
 from oddrin.models import (
     Oddrin,
     Idmc,
-    InformRisk
+    InformRisk,
+    IdmcSuddenOnset,
+    InformRiskSeasonal
 )
 from oddrin.serializers import (
     OddrinSerializer,
     IdmcSerializer,
-    InformRiskSerializer
+    InformRiskSerializer,
+    IdmcSuddenOnsetSerializer,
+    InformRiskSeasonalSerializer,
 )
 from oddrin.filter_set import (
     IdmcFilterSet,
-    InformRiskFilterSet
+    InformRiskFilterSet,
+    IdmcSuddenOnsetFilterSet,
+    InfromRiskSeasonalFilterSet
 )
 
 
@@ -28,6 +34,18 @@ class IdmcViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class InformRiskViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = InformRisk.objects.all().select_related('country')
+    queryset = InformRisk.objects.select_related('country')
     serializer_class = InformRiskSerializer
     filterset_class = InformRiskFilterSet
+
+
+class IdmcSuddenOnsetViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = IdmcSuddenOnset.objects.select_related('country')
+    serializer_class = IdmcSuddenOnsetSerializer
+    filterset_class = IdmcSuddenOnsetFilterSet
+
+
+class InformRiskSeasonalViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = InformRiskSeasonal.objects.select_related('country')
+    serializer_class = InformRiskSeasonalSerializer
+    filterset_class = InfromRiskSeasonalFilterSet

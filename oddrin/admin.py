@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from oddrin.models import Oddrin, Idmc, InformRisk
+from oddrin.models import (
+    Oddrin,
+    Idmc,
+    InformRisk,
+    IdmcSuddenOnset,
+    InformRiskSeasonal
+)
 
 
 @admin.register(Oddrin)
@@ -15,4 +21,14 @@ class IdmcAdmin(admin.ModelAdmin):
 
 @admin.register(InformRisk)
 class InformRiskAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(IdmcSuddenOnset)
+class IdmcSuddenOnsetAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(InformRiskSeasonal)
+class InformRiskSeasonalAdmin(admin.ModelAdmin):
     pass
