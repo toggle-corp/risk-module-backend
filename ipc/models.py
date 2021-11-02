@@ -35,11 +35,10 @@ class Ipc(models.Model):
     )
     phase_population = models.IntegerField(verbose_name=_('phase population'))
     census_population = models.IntegerField(verbose_name=_('census population'))
-    current_from_date = models.DateField(verbose_name=_('current from date'), blank=True, null=True)
-    current_to_date = models.DateField(verbose_name=_('current to date'), blank=True, null=True)
-    projected_from_date = models.DateField(verbose_name=_('projected from date'), blank=True, null=True)
-    projected_to_date = models.DateField(verbose_name=_('projected to date'), blank=True, null=True)
+    analysis_period_start_date = models.DateField(verbose_name=_('analysis period start date'), blank=True, null=True)
+    analysis_period_end_date = models.DateField(verbose_name=_('analysis period end date'), blank=True, null=True)
     hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=Oddrin.HazardType.choices, blank=True)
+    is_projected = models.BooleanField(verbose_name=_('is projected'), default=False)
 
     def __str__(self):
         return f'{self.title} - {self.country}'

@@ -18,8 +18,10 @@ class Command(BaseCommand):
         if date:
             return datetime.datetime.strptime(date, '%b %Y').strftime('%Y-%m-01')
 
-    def parse_analysis_date(self, date):
-        return datetime.datetime(int(date[0:4]), int(date[4:6]), int(date[6:8])).strftime('%Y-%m-%d')
+    def get_month(self, analysis_period_start_date, analysis_date):
+        analysis_period_start_date = datetime.datetime.strptime(analysis_period_start_date, '%Y-%m-%d')
+        analysis_date = datetime.datetime.strptime(analysis_date, '%Y-%m-%d')
+        return abs(analysis_period_start_date.month - analysis_date.month)
 
     def handle(self, *args, **options):
         for i in range(1, 9):
@@ -34,17 +36,23 @@ class Command(BaseCommand):
                 # Check whether is the country is present in local country
                 if Country.objects.filter(name=data['country']).exists():
                     country = Country.objects.get(name=data['country'])
-
+                    analysis_period = data['analysis_period'].split('-')
+                    analysis_period_start_date = analysis_period[0].strip()
+                    analysis_period_end_date = analysis_period[1].strip()
                     data = {
                         'title': data['title'],
                         'country': country,
-                        'analysis_date': self.parse_analysis_date(data['fanalysis_date']),
+                        'analysis_date': self.parse_date(data['analysis_date']),
                         'phase_population': data['p3_plus_population'],
                         'census_population': data['census_population'],
-                        'current_from_date': self.parse_date(data['current_from_date']),
-                        'current_to_date': self.parse_date(data['current_thru_date']),
-                        'projected_from_date': self.parse_date(data['projected_from_date']),
-                        'projected_to_date': self.parse_date(data['projected_thru_date']),
+                        'analysis_period_start_date': self.parse_date(analysis_period_start_date),
+                        'analysis_period_end_date': self.parse_date(analysis_period_end_date),
                         'hazard_type': Oddrin.HazardType.FOOD_INSECURITY
                     }
-                    Ipc.objects.create(**data)
+                    month = self.get_month(data['analysis_period_start_date'], data['analysis_date'])
+                    if data['analysis_period_end_date'] and data['analysis_date'] > data['analysis_period_end_date']:
+                        data['is_projected'] = False
+                        Ipc.objects.create(**data)
+                    elif data['analysis_period_start_date'] and data['analysis_date'] < data['analysis_period_start_date'] and month < 3:
+                        data['is_projected'] = True
+                        Ipc.objects.create(**data)
