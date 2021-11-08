@@ -3,6 +3,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
 
+class RiskFile(models.Model):
+    file = models.FileField(
+        upload_to='oddrin/', max_length=255,
+        null=True, blank=True, verbose_name=_('file')
+    )
+
+
 class Oddrin(models.Model):
 
     class HazardType(models.TextChoices):
@@ -38,9 +45,10 @@ class Oddrin(models.Model):
     people_exposed = models.IntegerField(verbose_name=_('people exposed'), null=True, blank=True)
     people_displaced = models.IntegerField(verbose_name=_('people displaced'), null=True, blank=True)
     buildings_exposed = models.IntegerField(verbose_name=_('buildings exposed'), null=True, blank=True)
-    file = models.FileField(
-        upload_to='oddrin/', max_length=255,
-        null=True, blank=True, verbose_name=_('file')
+    file = models.ForeignKey(
+        RiskFile, on_delete=models.SET_NULL,
+        verbose_name=_('file'),
+        blank=True, null=True
     )
 
     def str(self):

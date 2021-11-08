@@ -1,5 +1,3 @@
-from django.db import models
-
 from rest_framework import serializers
 
 from oddrin.models import (
@@ -7,12 +5,21 @@ from oddrin.models import (
     Idmc,
     InformRisk,
     IdmcSuddenOnset,
-    InformRiskSeasonal
+    InformRiskSeasonal,
+    RiskFile
 )
 from ipc.serializers import CountrySerializer
 
 
+class RiskFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RiskFile
+        fields = '__all__'
+
+
 class OddrinSerializer(serializers.ModelSerializer):
+    file_details = RiskFileSerializer(source='file', read_only=True)
+
     class Meta:
         model = Oddrin
         fields = '__all__'
