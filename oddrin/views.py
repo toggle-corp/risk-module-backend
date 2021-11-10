@@ -18,13 +18,15 @@ from oddrin.filter_set import (
     IdmcFilterSet,
     InformRiskFilterSet,
     IdmcSuddenOnsetFilterSet,
-    InfromRiskSeasonalFilterSet
+    InfromRiskSeasonalFilterSet,
+    OddrinFilterSet,
 )
 
 
 class OddrinViewSet(viewsets.ModelViewSet):
     queryset = Oddrin.objects.all()
     serializer_class = OddrinSerializer
+    filterset_class = OddrinFilterSet
 
 
 class IdmcViewSet(viewsets.ReadOnlyModelViewSet):

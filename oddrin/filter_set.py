@@ -4,7 +4,7 @@ from oddrin.models import (
     Idmc,
     InformRisk,
     IdmcSuddenOnset,
-    InformRiskSeasonal
+    InformRiskSeasonal,
 )
 from oddrin.models import Oddrin
 
@@ -42,4 +42,16 @@ class IdmcSuddenOnsetFilterSet(BaseFilterSet):
 class InfromRiskSeasonalFilterSet(BaseFilterSet):
     class Meta:
         model = InformRiskSeasonal
+        fields = ()
+
+
+class OddrinFilterSet(django_filters.FilterSet):
+    iso3 = django_filters.CharFilter(field_name='iso3', lookup_expr='icontains')
+    hazard_type = django_filters.MultipleChoiceFilter(
+        choices=Oddrin.HazardType.choices,
+        widget=django_filters.widgets.CSVWidget,
+    )
+
+    class Meta:
+        model = Oddrin
         fields = ()
