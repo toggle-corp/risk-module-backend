@@ -1,6 +1,6 @@
 import openpyxl
 
-from oddrin.models import Oddrin, InformRisk
+from oddrin.models import Oddrin, InformRisk, HazardType
 
 
 def get_maximum_rows(*, sheet_object):
@@ -49,37 +49,37 @@ def fetch_inform_data(file):
         epidemic_risk_score = data['epidemic']
         data = {
             'country': country,
-            'hazard_type': Oddrin.HazardType.EARTHQUAKE,
+            'hazard_type': HazardType.EARTHQUAKE,
             'risk_score': earthquake_risk_score
         }
         InformRisk.objects.create(**data)
         data = {
             'country': country,
-            'hazard_type': Oddrin.HazardType.FLOOD,
+            'hazard_type': HazardType.FLOOD,
             'risk_score': flood_risk_score
         }
         InformRisk.objects.create(**data)
         data = {
             'country': country,
-            'hazard_type': Oddrin.HazardType.CYCLONE,
+            'hazard_type': HazardType.CYCLONE,
             'risk_score': cyclone_risk_score
         }
         InformRisk.objects.create(**data)
         data = {
             'country': country,
-            'hazard_type': Oddrin.HazardType.DROUGHT,
+            'hazard_type': HazardType.DROUGHT,
             'risk_score': drought_risk_score
         }
         InformRisk.objects.create(**data)
         data = {
             'country': country,
-            'hazard_type': Oddrin.HazardType.EPIDEMIC,
+            'hazard_type': HazardType.EPIDEMIC,
             'risk_score': epidemic_risk_score
         }
         InformRisk.objects.create(**data)
         data = {
             'country': country,
-            'hazard_type': Oddrin.HazardType.TSUNAMI,
+            'hazard_type': HazardType.TSUNAMI,
             'risk_score': tsunami_risk_score
         }
         InformRisk.objects.create(**data)

@@ -1,6 +1,6 @@
 import openpyxl
 
-from oddrin.models import IdmcSuddenOnset, Oddrin
+from oddrin.models import IdmcSuddenOnset, Oddrin, HazardType
 
 
 def get_maximum_rows(*, sheet_object):
@@ -13,15 +13,15 @@ def get_maximum_rows(*, sheet_object):
 
 def parse_hazard_type(hazard_type):
     if hazard_type == 'Earthquake':
-        hazard_type = Oddrin.HazardType.EARTHQUAKE
+        hazard_type = HazardType.EARTHQUAKE
     elif hazard_type == 'Storm-surge':
-        hazard_type = Oddrin.HazardType.STORM
+        hazard_type = HazardType.STORM
     elif hazard_type == 'Tsunami':
-        hazard_type = Oddrin.HazardType.TSUNAMI
+        hazard_type = HazardType.TSUNAMI
     elif hazard_type == 'Flood':
-        hazard_type = Oddrin.HazardType.FLOOD
+        hazard_type = HazardType.FLOOD
     elif hazard_type == 'Cyclonic Wind':
-        hazard_type = Oddrin.HazardType.CYCLONE
+        hazard_type = HazardType.CYCLONE
     return hazard_type
 
 

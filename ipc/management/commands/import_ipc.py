@@ -5,7 +5,7 @@ import requests
 from django.core.management.base import BaseCommand
 
 from ipc.models import Ipc, Country
-from oddrin.models import Oddrin
+from oddrin.models import HazardType
 
 
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ class Command(BaseCommand):
                         'census_population': data['census_population'],
                         'analysis_period_start_date': self.parse_date(analysis_period_start_date),
                         'analysis_period_end_date': self.parse_date(analysis_period_end_date),
-                        'hazard_type': Oddrin.HazardType.FOOD_INSECURITY
+                        'hazard_type': HazardType.FOOD_INSECURITY
                     }
                     month = self.get_month(data['analysis_period_start_date'], data['analysis_date'])
                     if data['analysis_period_end_date'] and data['analysis_date'] > data['analysis_period_end_date']:

@@ -1,6 +1,6 @@
 import openpyxl
 
-from oddrin.models import Oddrin, InformRiskSeasonal
+from oddrin.models import Oddrin, InformRiskSeasonal, HazardType
 
 
 def get_maximum_rows(*, sheet_object):
@@ -13,11 +13,11 @@ def get_maximum_rows(*, sheet_object):
 
 def parse_hazard_type(hazard_type):
     if hazard_type == 'INFORM.TC.Seasonal':
-        hazard_type = Oddrin.HazardType.CYCLONE
+        hazard_type = HazardType.CYCLONE
     elif hazard_type == 'INFORM.DR.Seasonal':
-        hazard_type = Oddrin.HazardType.DROUGHT
+        hazard_type = HazardType.DROUGHT
     elif hazard_type == 'INFORM.FL.Seasonal':
-        hazard_type = Oddrin.HazardType.FLOOD
+        hazard_type = HazardType.FLOOD
     return hazard_type
 
 
@@ -26,7 +26,7 @@ def fetch_inform_seasonal(file):
     workbook = openpyxl.load_workbook(file)
     worksheet = workbook.get_sheet_by_name('Sheet1')
     max_rows = get_maximum_rows(sheet_object=worksheet)
-    hazard_list = [Oddrin.HazardType.CYCLONE, Oddrin.HazardType.DROUGHT, Oddrin.HazardType.FLOOD]
+    hazard_list = [HazardType.CYCLONE, HazardType.DROUGHT, HazardType.FLOOD]
     for i in range(2, max_rows + 1):
         iso3 = worksheet.cell(row=i, column=1).value
         hazard_type = parse_hazard_type(worksheet.cell(row=i, column=2).value)

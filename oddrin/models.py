@@ -10,17 +10,18 @@ class RiskFile(models.Model):
     )
 
 
-class Oddrin(models.Model):
+class HazardType(models.TextChoices):
+    EARTHQUAKE = 'EQ', 'Earthquake'
+    FLOOD = 'FL', 'Flood'
+    CYCLONE = 'TC', 'Cyclone'
+    EPIDEMIC = 'EP', 'Epidemic'
+    FOOD_INSECURITY = 'FI', 'Food Insecurity'
+    STORM = 'SS', 'Storm'
+    DROUGHT = 'DR', 'Drought'
+    TSUNAMI = 'TS', 'Tsunami'
 
-    class HazardType(models.TextChoices):
-        EARTHQUAKE = 'earthquake', 'Earthquake'
-        FLOOD = 'flood', 'Flood'
-        CYCLONE = 'cyclone', 'Cyclone'
-        EPIDEMIC = 'epidemic', 'Epidemic'
-        FOOD_INSECURITY = 'food_insecurity', 'Food Insecurity'
-        STORM = 'storm', 'Storm'
-        DROUGHT = 'drought', 'Drought'
-        TSUNAMI = 'tsunami', 'Tsunami'
+
+class Oddrin(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -45,6 +46,8 @@ class Oddrin(models.Model):
     people_exposed = models.IntegerField(verbose_name=_('people exposed'), null=True, blank=True)
     people_displaced = models.IntegerField(verbose_name=_('people displaced'), null=True, blank=True)
     buildings_exposed = models.IntegerField(verbose_name=_('buildings exposed'), null=True, blank=True)
+    lower_displacement = models.IntegerField(verbose_name=_('lower displacement'), null=True, blank=True)
+    higher_displacement = models.IntegerField(verbose_name=_('higher displacement'), null=True, blank=True)
     file = models.ForeignKey(
         RiskFile, on_delete=models.SET_NULL,
         verbose_name=_('file'),
@@ -56,11 +59,6 @@ class Oddrin(models.Model):
 
 
 class Idmc(models.Model):
-    class HazardType(models.TextChoices):
-        FLOOD = 'flood', 'Flood'
-        STORM = 'storm', 'Storm'
-        FOOD_INSECURITY = 'food_insecurity', 'Food Insecurity'
-
     class ConfidenceType(models.TextChoices):
         HIGH = 'high', 'High'
         MEDIUM = 'medium', 'Medium'
@@ -69,7 +67,11 @@ class Idmc(models.Model):
 
     country = models.CharField(max_length=255, verbose_name=_('country'))
     iso3 = models.CharField(max_length=3, verbose_name=_('iso3'), null=True, blank=True)
-    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=HazardType.choices, blank=True)
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=HazardType.choices,
+        null=True, blank=True
+    )
     confidence_type = models.CharField(
         max_length=100, verbose_name=_('confidence type'),
         choices=ConfidenceType.choices, blank=True
@@ -126,7 +128,7 @@ class InformRisk(models.Model):
     )
     hazard_type = models.CharField(
         max_length=100, verbose_name=_('hazard type'),
-        choices=Oddrin.HazardType.choices, blank=True
+        choices=HazardType.choices, blank=True
     )
     risk_score = models.FloatField(verbose_name=_('risk_score'), null=True, blank=True)
 
@@ -141,7 +143,7 @@ class InformRiskSeasonal(models.Model):
     )
     hazard_type = models.CharField(
         max_length=100, verbose_name=_('hazard type'),
-        choices=Oddrin.HazardType.choices, blank=True
+        choices=HazardType.choices, blank=True
     )
     january = models.FloatField(
         verbose_name=_('january'), null=True, blank=True
@@ -191,7 +193,7 @@ class IdmcSuddenOnset(models.Model):
     )
     hazard_type = models.CharField(
         max_length=100, verbose_name=_('hazard type'),
-        choices=Oddrin.HazardType.choices, blank=True
+        choices=HazardType.choices, blank=True
     )
     annual_average_displacement = models.IntegerField(
         null=True, blank=True,

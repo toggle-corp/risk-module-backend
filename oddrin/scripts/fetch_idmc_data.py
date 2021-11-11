@@ -1,6 +1,6 @@
 import openpyxl
 
-from oddrin.models import Idmc
+from oddrin.models import HazardType, Idmc
 
 
 def get_maximum_rows(*, sheet_object):
@@ -9,6 +9,16 @@ def get_maximum_rows(*, sheet_object):
         if not all(col.value is None for col in row):
             rows += 1
     return rows
+
+
+def parse_hazard_type(hazard_type):
+    if hazard_type == 'flood':
+        hazard_type = HazardType.FLOOD
+    elif hazard_type == 'storm':
+        hazard_type = HazardType.STORM
+    elif hazard_type == 'food_insecurity':
+        hazard_type = HazardType.FOOD_INSECURITY
+    return hazard_type
 
 
 def fetch_idmc_data(file):
@@ -69,7 +79,7 @@ def fetch_idmc_data(file):
         data = {
             'country': country,
             'iso3': iso3,
-            'hazard_type': hazard_type,
+            'hazard_type': parse_hazard_type(hazard_type),
             'annual_average_displacement': annual_average_displacement,
             'confidence_type': confidence_type,
             'note': note,

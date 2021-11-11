@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from oddrin.models import Oddrin
+from oddrin.models import HazardType
 
 
 class Country(models.Model):
@@ -37,7 +37,7 @@ class Ipc(models.Model):
     census_population = models.IntegerField(verbose_name=_('census population'))
     analysis_period_start_date = models.DateField(verbose_name=_('analysis period start date'), blank=True, null=True)
     analysis_period_end_date = models.DateField(verbose_name=_('analysis period end date'), blank=True, null=True)
-    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=Oddrin.HazardType.choices, blank=True)
+    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=HazardType.choices, blank=True)
     is_projected = models.BooleanField(verbose_name=_('is projected'), default=False)
 
     def __str__(self):
@@ -46,7 +46,7 @@ class Ipc(models.Model):
 
 class GlobalDisplacement(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name=_('country'))
-    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=Oddrin.HazardType.choices, blank=True)
+    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=HazardType.choices, blank=True)
     total_displacement = models.IntegerField(verbose_name=_('total displacement'), null=True, blank=True)
     year = models.IntegerField(verbose_name=_('year'))
     month = models.IntegerField(verbose_name=_('month'))

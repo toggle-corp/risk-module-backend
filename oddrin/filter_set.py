@@ -6,7 +6,7 @@ from oddrin.models import (
     IdmcSuddenOnset,
     InformRiskSeasonal,
 )
-from oddrin.models import Oddrin
+from oddrin.models import HazardType, Oddrin
 
 
 class IdmcFilterSet(django_filters.FilterSet):
@@ -22,7 +22,7 @@ class BaseFilterSet(django_filters.FilterSet):
     country = django_filters.CharFilter(field_name='country', lookup_expr='icontains')
     iso3 = django_filters.CharFilter(field_name='country__iso3', lookup_expr='icontains')
     hazard_type = django_filters.MultipleChoiceFilter(
-        choices=Oddrin.HazardType.choices,
+        choices=HazardType.choices,
         widget=django_filters.widgets.CSVWidget,
     )
 
@@ -48,7 +48,7 @@ class InfromRiskSeasonalFilterSet(BaseFilterSet):
 class OddrinFilterSet(django_filters.FilterSet):
     iso3 = django_filters.CharFilter(field_name='iso3', lookup_expr='icontains')
     hazard_type = django_filters.MultipleChoiceFilter(
-        choices=Oddrin.HazardType.choices,
+        choices=HazardType.choices,
         widget=django_filters.widgets.CSVWidget,
     )
 
