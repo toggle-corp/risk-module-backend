@@ -9,6 +9,7 @@ from oddrin.models import (
     RiskFile
 )
 from ipc.serializers import CountrySerializer
+from oddrin.scripts.create_raster_tile import create_raster_tile
 
 
 class RiskFileSerializer(serializers.ModelSerializer):
@@ -18,7 +19,8 @@ class RiskFileSerializer(serializers.ModelSerializer):
 
 
 class OddrinSerializer(serializers.ModelSerializer):
-    file_details = RiskFileSerializer(source='file', read_only=True)
+    hazard_type_display = serializers.CharField(source='get_hazard_type_display', read_only=True)
+    file_type_display = serializers.CharField(source='get_file_type_display', read_only=True)
 
     class Meta:
         model = Oddrin

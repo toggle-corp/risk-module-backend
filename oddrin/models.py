@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import ModelState
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
@@ -22,6 +23,10 @@ class HazardType(models.TextChoices):
 
 
 class Oddrin(models.Model):
+
+    class FileType(models.TextChoices):
+        RASTER = 'raster', 'Raster'
+        VECTOR = 'vector', 'Vector'
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -48,11 +53,12 @@ class Oddrin(models.Model):
     buildings_exposed = models.IntegerField(verbose_name=_('buildings exposed'), null=True, blank=True)
     lower_displacement = models.IntegerField(verbose_name=_('lower displacement'), null=True, blank=True)
     higher_displacement = models.IntegerField(verbose_name=_('higher displacement'), null=True, blank=True)
-    file = models.ForeignKey(
-        RiskFile, on_delete=models.SET_NULL,
+    file = models.FileField(
         verbose_name=_('file'),
         blank=True, null=True
     )
+    file_type = models.CharField(max_length=100, verbose_name=_('file type'), choices=FileType.choices, blank=True)
+    mapbox_layer_id = models.CharField(max_length=255, verbose_name=_('mapbox id'), null=True, blank=True)
 
     def str(self):
         return f'{self.hazard_title} - {self.hazard_type}'
