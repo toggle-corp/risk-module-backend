@@ -1,23 +1,24 @@
 import os
 import subprocess
-#import imageio
+import gdal
 
 
-def create_raster_tile(file, source_id):
+def create_raster_tile(file):
     """
     Work flow convert the geotiff file that is in 16-bit to 8-bit for mapbox
     """
-    print(file)
+    scaled_command_using_glad = f'gdal_translate -ot Byte -b 1 ODDRIN_EQ20210814HTI_Est20210815.tif raster.tif -scale 0 22954.003 1 255 -a_nodata 0 -colorinterp_1 blue'
+
+    scaled_file = subprocess.Popen(scaled_command_using_glad, stdout=subprocess.PIPE, shell=True)
+    print(scaled_file)
     username = 'togglecorp'
-    """file = imageio.imread(file)
-    file = file / 256
-    # now this file will be 8-bit tiff
-    file = file.astype('uint8')"""
     # upload this file
-    upload_command = f'mapbox upload {username}.data {file}'
+    upload_command = f'mapbox upload {username}.data raster.tif'
+    # this returns the upload_id
+    # use this id for the tileset
     upload = subprocess.Popen(upload_command, stdout=subprocess.PIPE, shell=True)
-    output, err = upload.communicate()
-    upload_id = output
-    print(upload_id, "test")
+    print(upload)
+
+    # the upload_id is thus used to create_tileset
     create_tileset = f'mapbox datasets create-tileset ckw4px83t06yi21pndbxpnpg5 {username}'
     tileset = os.system(create_tileset)
