@@ -5,7 +5,8 @@ from django.core.management.base import BaseCommand
 from ipc.models import (
     Country,
     Ipc,
-    IpcMonthly
+    IpcMonthly,
+    EstimationType
 )
 
 
@@ -41,7 +42,7 @@ class Command(BaseCommand):
                     'phase_population': phase_population,
                     'year': year,
                     'month': month,
-                    'is_projected': False,
+                    'estimation_type': EstimationType.CURRENT,
                     'analysis_date': analysis_date,
                     'census_population': census_population
                 }
@@ -56,9 +57,8 @@ class Command(BaseCommand):
                     'phase_population': projected_population,
                     'year': year,
                     'month': month,
-                    'is_projected': True,
+                    'estimation_type': EstimationType.FIRST_PROJECTION,
                     'analysis_date': analysis_date,
                     'census_population': census_population
                 }
                 IpcMonthly.objects.create(**data)
-        # lets update the IpcMonthly if the 

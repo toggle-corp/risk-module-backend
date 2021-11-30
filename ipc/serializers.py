@@ -12,6 +12,7 @@ class CountrySerializer(serializers.ModelSerializer):
 class GlobalDisplacementSerializer(serializers.ModelSerializer):
     country_details = CountrySerializer(source='country', read_only=True)
     hazard_type_display = serializers.CharField(source='get_hazard_type_display')
+    estimation_type_display = serializers.CharField(source='get_estimation_type_display')
 
     class Meta:
         model = GlobalDisplacement
