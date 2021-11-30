@@ -26,14 +26,14 @@ class OddrinSerializer(serializers.ModelSerializer):
         model = Oddrin
         fields = '__all__'
 
-    def create(self, validate_data):
+    """def create(self, validate_data):
         file = validate_data.get('file')
         glide_number = validate_data.get('glide_number')
         if file:
             mapbox_layer_id = create_raster_tile(file)
         data = super().create(validate_data)
         data['mapbox_layer_id'] = mapbox_layer_id
-        return data
+        return data"""
 
 
 class IdmcSerializer(serializers.ModelSerializer):

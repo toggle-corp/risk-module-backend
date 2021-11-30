@@ -12,7 +12,7 @@ class GlobalDisplacementFilterSet(django_filters.FilterSet):
         widget=django_filters.widgets.CSVWidget,
     )
     estimation_type = django_filters.MultipleChoiceFilter(
-        choices=EstimationType().choices,
+        choices=EstimationType.choices,
         widget=django_filters.widgets.CSVWidget,
     )
 

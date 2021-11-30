@@ -29,8 +29,8 @@ class Oddrin(models.Model):
         VECTOR = 'vector', 'Vector'
 
     class DataSource(models.TextChoices):
-        ODDRIN = 'ODD', 'Oddrin'
-        PACIFIC_DIASATER_CENTER = 'PDC', 'Pdc'
+        ODDRIN = 'oddrin', 'Oddrin'
+        PACIFIC_DIASATER_CENTER = 'pdc', 'Pdc'
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
