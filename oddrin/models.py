@@ -28,6 +28,10 @@ class Oddrin(models.Model):
         RASTER = 'raster', 'Raster'
         VECTOR = 'vector', 'Vector'
 
+    class DataSource(models.TextChoices):
+        ODDRIN = 'ODD', 'Oddrin'
+        PACIFIC_DIASATER_CENTER = 'PDC', 'Pdc'
+
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
@@ -44,7 +48,9 @@ class Oddrin(models.Model):
     )
     hazard_title = models.CharField(max_length=255, verbose_name=_('hazard title'))
     hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=HazardType.choices, blank=True)
+    source_type = models.CharField(max_length=100, verbose_name=_('source type'), choices=DataSource.choices, blank=True)
     glide_number = models.CharField(max_length=100, verbose_name=_('glide number'), null=True, blank=True)
+    uuid = models.CharField(max_length=128, verbose_name=_('uuid'), null=True, blank=True)
     latitude = models.FloatField(verbose_name=_('latitude'), null=True, blank=True)
     longitude = models.FloatField(verbose_name=_('longitude'), null=True, blank=True)
     iso3 = models.CharField(max_length=3, verbose_name=_('iso3'), null=True, blank=True)

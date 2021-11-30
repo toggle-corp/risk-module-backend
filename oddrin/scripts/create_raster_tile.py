@@ -1,6 +1,6 @@
 import os
 import subprocess
-import gdal
+#import gdal
 
 
 def create_raster_tile(file):

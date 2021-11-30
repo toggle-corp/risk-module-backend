@@ -33,7 +33,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 
 router.register(r'earthquake', EarthquakeViewSet, basename='earthquake')
-router.register(r'oddrin-data', OddrinViewSet, basename='oddrin')
+router.register(r'global-exposure-data', OddrinViewSet, basename='oddrin')
 router.register(r'idmc-data', IdmcViewSet, basename='idmc')
 router.register(r'displacement-data', GlobalDisplacementViewSet, basename='global')
 router.register(r'inform-data', InformRiskViewSet, basename='inform')
