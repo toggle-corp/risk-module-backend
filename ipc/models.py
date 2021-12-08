@@ -82,3 +82,29 @@ class GlobalDisplacement(models.Model):
 
     def __str__(self):
         return f'{self.country} - {self.hazard_type} - {self.total_displacement}'
+
+
+class ThinkHazardCountry(models.Model):
+    country_id = models.CharField(max_length=255, verbose_name=_('country'))
+    name = models.CharField(max_length=255, verbose_name=_('name'))
+    iso3 = models.CharField(max_length=3, verbose_name=_('iso3'), null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name} {self.country_id}'
+
+
+class ThinkHazardInformation(models.Model):
+    class ThinkHazardLevel(models.TextChoices):
+        LOW = 'low', 'Low'
+        VERY_LOW = 'very low', 'Very Low'
+        MEDIUM = 'medium', 'Medium'
+        HIGH = 'high', 'High'
+
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    hazard_level = models.CharField(max_length=100, verbose_name=_('hazard level'),
+                                    choices=ThinkHazardLevel.choices)
+    information = models.TextField(verbose_name=_('information'))
+    hazard_type = models.CharField(max_length=100, verbose_name=_('hazard type'), choices=HazardType.choices, blank=True)
+
+    def __str__(self):
+        return f'{self.hazard_type} {self.country.name}'

@@ -4,7 +4,9 @@ from ipc.models import (
     Ipc,
     IpcMonthly,
     Country,
-    GlobalDisplacement
+    GlobalDisplacement,
+    ThinkHazardCountry,
+    ThinkHazardInformation
 )
 
 
@@ -25,4 +27,14 @@ class CountryAdmin(admin.ModelAdmin):
 
 @admin.register(GlobalDisplacement)
 class GlobalDisplacement(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ThinkHazardCountry)
+class ThinkHazardCountry(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ThinkHazardInformation)
+class ThinkHazardInformation(admin.ModelAdmin):
     pass
