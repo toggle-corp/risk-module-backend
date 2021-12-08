@@ -24,7 +24,8 @@ from oddrin.views import (
     IdmcViewSet,
     InformRiskViewSet,
     IdmcSuddenOnsetViewSet,
-    InformRiskSeasonalViewSet
+    InformRiskSeasonalViewSet,
+    DisplacementViewSet
 )
 from ipc.views import GlobalDisplacementViewSet
 
@@ -39,9 +40,11 @@ router.register(r'displacement-data', GlobalDisplacementViewSet, basename='globa
 router.register(r'inform-data', InformRiskViewSet, basename='inform')
 router.register(r'idmc-return-period-data', IdmcSuddenOnsetViewSet, basename='idmc return period')
 router.register(r'inform-seasonal-data', InformRiskSeasonalViewSet, basename='inform seasonal')
+router.register(r'exposure-data', DisplacementViewSet, basename='global exposure')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
 urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

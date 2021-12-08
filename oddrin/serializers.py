@@ -6,7 +6,8 @@ from oddrin.models import (
     InformRisk,
     IdmcSuddenOnset,
     InformRiskSeasonal,
-    RiskFile
+    RiskFile,
+    DisplacementData,
 )
 from ipc.serializers import CountrySerializer
 from oddrin.scripts.create_raster_tile import create_raster_tile
@@ -69,4 +70,13 @@ class InformRiskSeasonalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InformRiskSeasonal
+        fields = '__all__'
+
+
+class DisplacementDataSerializer(serializers.ModelSerializer):
+    hazard_type_display = serializers.CharField(source='get_hazard_type_display')
+    country_details = CountrySerializer(source='country', read_only=True)
+
+    class Meta:
+        model = DisplacementData
         fields = '__all__'

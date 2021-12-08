@@ -5,7 +5,8 @@ from oddrin.models import (
     Idmc,
     InformRisk,
     IdmcSuddenOnset,
-    InformRiskSeasonal
+    InformRiskSeasonal,
+    DisplacementData
 )
 from oddrin.serializers import (
     OddrinSerializer,
@@ -13,6 +14,7 @@ from oddrin.serializers import (
     InformRiskSerializer,
     IdmcSuddenOnsetSerializer,
     InformRiskSeasonalSerializer,
+    DisplacementDataSerializer
 )
 from oddrin.filter_set import (
     IdmcFilterSet,
@@ -20,6 +22,7 @@ from oddrin.filter_set import (
     IdmcSuddenOnsetFilterSet,
     InfromRiskSeasonalFilterSet,
     OddrinFilterSet,
+    DisplacementDataFilterSet,
 )
 
 
@@ -51,3 +54,9 @@ class InformRiskSeasonalViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = InformRiskSeasonal.objects.select_related('country')
     serializer_class = InformRiskSeasonalSerializer
     filterset_class = InfromRiskSeasonalFilterSet
+
+
+class DisplacementViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = DisplacementData.objects.select_related('country')
+    serializer_class = DisplacementDataSerializer
+    filterset_class = DisplacementDataFilterSet

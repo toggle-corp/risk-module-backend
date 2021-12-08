@@ -5,6 +5,7 @@ from oddrin.models import (
     InformRisk,
     IdmcSuddenOnset,
     InformRiskSeasonal,
+    DisplacementData
 )
 from oddrin.models import HazardType, Oddrin
 
@@ -54,4 +55,10 @@ class OddrinFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = Oddrin
+        fields = ()
+
+
+class DisplacementDataFilterSet(BaseFilterSet):
+    class Meta:
+        model = DisplacementData
         fields = ()
