@@ -1,14 +1,10 @@
 import pandas as pd
 
-from ipc.models import (
-    ThinkHazardCountry,
-    ThinkHazardInformation
-)
+from ipc.models import ThinkHazardCountry
 
 
 def create_think_hazard(file):
     data_file = pd.read_csv(file, sep=';')
-    print(data_file)
     countries = [
         ThinkHazardCountry(
             country_id=data['ADM0_CODE'],

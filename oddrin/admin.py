@@ -6,7 +6,8 @@ from oddrin.models import (
     InformRisk,
     IdmcSuddenOnset,
     InformRiskSeasonal,
-    DisplacementData
+    DisplacementData,
+    GarHazard
 )
 
 
@@ -36,4 +37,9 @@ class InformRiskSeasonalAdmin(admin.ModelAdmin):
 
 @admin.register(DisplacementData)
 class DisplacementDataAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(GarHazard)
+class GarHazardAdmin(admin.ModelAdmin):
     pass

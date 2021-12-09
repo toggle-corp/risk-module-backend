@@ -16,9 +16,10 @@ class HazardType(models.TextChoices):
     CYCLONE = 'TC', 'Cyclone'
     EPIDEMIC = 'EP', 'Epidemic'
     FOOD_INSECURITY = 'FI', 'Food Insecurity'
-    STORM = 'SS', 'Storm'
+    STORM = 'SS', 'Storm Surge'
     DROUGHT = 'DR', 'Drought'
     TSUNAMI = 'TS', 'Tsunami'
+    WIND = 'CD', 'Cyclonic Wind'
 
 
 class Oddrin(models.Model):
@@ -287,6 +288,40 @@ class IdmcSuddenOnset(models.Model):
     return_period_1500_years = models.IntegerField(
         null=True, blank=True,
         verbose_name=_('return period 1500 years')
+    )
+
+    def __str__(self):
+        return f'{self.country} - {self.hazard_type}'
+
+
+class GarHazard(models.Model):
+    country = models.ForeignKey(
+        'ipc.Country', on_delete=models.CASCADE,
+        verbose_name=_('country'), null=True, blank=True
+    )
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=HazardType.choices, blank=True
+    )
+    return_period_20_years = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('return period 20 years')
+    )
+    return_period_50_years = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('return period 50 years')
+    )
+    return_period_100_years = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('return period 100 years')
+    )
+    return_period_250_years = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('return period 250 years')
+    )
+    return_period_500_years = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('return period 500 years')
     )
 
     def __str__(self):
