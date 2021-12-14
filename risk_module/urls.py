@@ -26,7 +26,8 @@ from oddrin.views import (
     IdmcSuddenOnsetViewSet,
     InformRiskSeasonalViewSet,
     DisplacementViewSet,
-    GarHazardViewSet
+    GarHazardViewSet,
+    PdcDisplacementViewSet
 )
 from ipc.views import (
     GlobalDisplacementViewSet,
@@ -47,6 +48,7 @@ router.register(r'inform-seasonal-data', InformRiskSeasonalViewSet, basename='in
 router.register(r'exposure-data', DisplacementViewSet, basename='global exposure')
 router.register(r'hazard_info', ThinkHazardInformationViewSet, basename='hazard info')
 router.register(r'gar-return-period', GarHazardViewSet, basename='gar return period')
+router.register(r'pdc-displacement', PdcDisplacementViewSet, basename='pdc displacement')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),

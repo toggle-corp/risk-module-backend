@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import TextField
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
@@ -326,3 +327,66 @@ class GarHazard(models.Model):
 
     def __str__(self):
         return f'{self.country} - {self.hazard_type}'
+
+
+class Pdc(models.Model):
+    hazard_id = models.CharField(verbose_name=_('hazard id'), max_length=255)
+    hazard_name = models.CharField(verbose_name=_('hazard name'), max_length=255)
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=HazardType.choices, blank=True
+    )
+    latitude = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('latitude')
+    )
+    longitude = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('longitude')
+    )
+    uuid = models.UUIDField(
+        verbose_name=_('uuid'),
+        null=True, blank=True,
+    )
+    description = models.TextField(
+        verbose_name=_('description'),
+        blank=True
+    )
+    start_date = models.DateField(
+        null=True, blank=True,
+        verbose_name=_('start date')
+    )
+    end_date = models.DateField(
+        null=True, blank=True,
+        verbose_name=_('end_date')
+    )
+
+    def __str__(self):
+        return f'{self.hazard_id} - {self.hazard_name}'
+
+
+class PdcDisplacement(models.Model):
+    hazard_type = models.CharField(
+        max_length=100, verbose_name=_('hazard type'),
+        choices=HazardType.choices, blank=True
+    )
+    country = models.ForeignKey(
+        'ipc.Country', on_delete=models.CASCADE,
+        verbose_name=_('country'), null=True, blank=True
+    )
+    pdc = models.ForeignKey(
+        Pdc, on_delete=models.CASCADE,
+        verbose_name=_('pdc')
+    )
+    population_exposure = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('population exposure')
+    )
+    capital_exposure = models.FloatField(
+        null=True, blank=True,
+        verbose_name=_('capital exposure')
+
+    )
+
+    def __str__(self):
+        return f'{self.country.name} - {self.hazard_type}'

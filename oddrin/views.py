@@ -7,7 +7,8 @@ from oddrin.models import (
     IdmcSuddenOnset,
     InformRiskSeasonal,
     DisplacementData,
-    GarHazard
+    GarHazard,
+    PdcDisplacement
 )
 from oddrin.serializers import (
     OddrinSerializer,
@@ -17,6 +18,7 @@ from oddrin.serializers import (
     InformRiskSeasonalSerializer,
     DisplacementDataSerializer,
     GarHazardSerializer,
+    PdcDisplacementSerializer
 )
 from oddrin.filter_set import (
     IdmcFilterSet,
@@ -26,6 +28,7 @@ from oddrin.filter_set import (
     OddrinFilterSet,
     DisplacementDataFilterSet,
     GarHazardFilterSet,
+    PdcDisplacemenFilterSet
 )
 
 
@@ -69,3 +72,9 @@ class GarHazardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = GarHazard.objects.select_related('country')
     serializer_class = GarHazardSerializer
     filterset_class = GarHazardFilterSet
+
+
+class PdcDisplacementViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = PdcDisplacement.objects.select_related('country')
+    serializer_class = PdcDisplacementSerializer
+    filterset_class = PdcDisplacemenFilterSet

@@ -8,7 +8,9 @@ from oddrin.models import (
     InformRiskSeasonal,
     RiskFile,
     DisplacementData,
-    GarHazard
+    GarHazard,
+    PdcDisplacement,
+    Pdc,
 )
 from ipc.serializers import CountrySerializer
 from oddrin.scripts.create_raster_tile import create_raster_tile
@@ -89,4 +91,20 @@ class GarHazardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GarHazard
+        fields = '__all__'
+
+
+class PdcSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pdc
+        fields = '__all__'
+
+
+class PdcDisplacementSerializer(serializers.ModelSerializer):
+    hazard_type_display = serializers.CharField(source='get_hazard_type_display')
+    country_details = CountrySerializer(source='country', read_only=True)
+    pdc_details = PdcSerializer(source='pdc', read_only=True)
+
+    class Meta:
+        model = PdcDisplacement
         fields = '__all__'
