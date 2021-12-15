@@ -10,7 +10,8 @@ from oddrin.models import (
     InformRiskSeasonal,
     DisplacementData,
     GarHazard,
-    PdcDisplacement
+    PdcDisplacement,
+    Pdc,
 )
 from oddrin.serializers import (
     OddrinSerializer,
@@ -85,5 +86,6 @@ class PdcDisplacementViewSet(viewsets.ReadOnlyModelViewSet):
         yesterday = today + timedelta(days=-1)
         return PdcDisplacement.objects.filter(
             pdc__created_at__date__lte=today,
-            pdc__created_at__date__gte=yesterday
+            pdc__created_at__date__gte=yesterday,
+            pdc__status=Pdc.Status.ACTIVE,
         ).select_related('country')

@@ -95,6 +95,8 @@ class GarHazardSerializer(serializers.ModelSerializer):
 
 
 class PdcSerializer(serializers.ModelSerializer):
+    status_display = serializers.CharField(source='get_status_display')
+
     class Meta:
         model = Pdc
         fields = '__all__'

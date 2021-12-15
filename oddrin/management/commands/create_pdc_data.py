@@ -55,8 +55,14 @@ class Command(BaseCommand):
         response_data = response.json()
         for data in response_data:
             # NOTE: Filter the active hazard only
+            # Update the hazard if it has expired
             hazard_type = data['type_ID']
             hazard_status = data['status']
+            if hazard_status == 'E':
+                pdc = Pdc.objects.filter(uuid=data['uuid'])
+                if pdc.exists():
+                    pdc.status = Pdc.Status.EXPIRED
+                    pdc.save(update_fields=['status'])
             if hazard_status == 'A':
                 if hazard_type == 'FLOOD':
                     hazard_type = HazardType.FLOOD
@@ -69,9 +75,10 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)
                 elif hazard_type == 'CYCLONE':
                     hazard_type = HazardType.CYCLONE
                     data = {
@@ -83,9 +90,10 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)
                 elif hazard_type == 'STORM':
                     hazard_type = HazardType.STORM
                     data = {
@@ -97,9 +105,10 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)
                 elif hazard_type == 'DROUGHT':
                     hazard_type = HazardType.DROUGHT
                     data = {
@@ -111,9 +120,10 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)
                 elif hazard_type == 'WIND':
                     hazard_type = HazardType.WIND
                     data = {
@@ -125,9 +135,10 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)
                 elif hazard_type == 'TSUNAMI':
                     hazard_type = HazardType.TSUNAMI
                     data = {
@@ -139,9 +150,10 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)
                 elif hazard_type == 'EARTHQUAKE':
                     hazard_type = HazardType.EARTHQUAKE
                     data = {
@@ -153,6 +165,7 @@ class Command(BaseCommand):
                         'hazard_type': hazard_type,
                         'uuid': data['uuid'],
                         'start_date': self.parse_timestamp(data['start_Date']),
-                        'end_date': self.parse_timestamp(data['end_Date'])
+                        'end_date': self.parse_timestamp(data['end_Date']),
+                        'status': Pdc.Status.ACTIVE,
                     }
-                    Pdc.objects.create(**data)
+                    Pdc.objects.get_or_create(**data)

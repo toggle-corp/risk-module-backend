@@ -330,6 +330,10 @@ class GarHazard(models.Model):
 
 
 class Pdc(models.Model):
+    class Status(models.TextChoices):
+        ACTIVE = 'A', 'Active',
+        EXPIRED = 'E', 'Expired',
+
     created_at = models.DateTimeField(auto_now_add=True)
     hazard_id = models.CharField(verbose_name=_('hazard id'), max_length=255)
     hazard_name = models.CharField(verbose_name=_('hazard name'), max_length=255)
@@ -340,6 +344,10 @@ class Pdc(models.Model):
     latitude = models.FloatField(
         null=True, blank=True,
         verbose_name=_('latitude')
+    )
+    status = models.CharField(
+        verbose_name=_('status'), max_length=20,
+        choices=Status.choices, blank=True
     )
     longitude = models.FloatField(
         null=True, blank=True,
