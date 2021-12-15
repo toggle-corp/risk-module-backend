@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+
 from rest_framework import viewsets
 
 from oddrin.models import (
@@ -75,6 +77,13 @@ class GarHazardViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PdcDisplacementViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = PdcDisplacement.objects.select_related('country')
     serializer_class = PdcDisplacementSerializer
     filterset_class = PdcDisplacemenFilterSet
+
+    def get_queryset(self):
+        today = datetime.now().date()
+        yesterday = today + timedelta(days=-1)
+        return PdcDisplacement.objects.filter(
+            pdc__created_at__date__lte=today,
+            pdc__created_at__date__gte=yesterday
+        ).select_related('country')

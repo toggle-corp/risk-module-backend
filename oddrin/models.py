@@ -330,6 +330,7 @@ class GarHazard(models.Model):
 
 
 class Pdc(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
     hazard_id = models.CharField(verbose_name=_('hazard id'), max_length=255)
     hazard_name = models.CharField(verbose_name=_('hazard name'), max_length=255)
     hazard_type = models.CharField(
@@ -385,7 +386,6 @@ class PdcDisplacement(models.Model):
     capital_exposure = models.FloatField(
         null=True, blank=True,
         verbose_name=_('capital exposure')
-
     )
 
     def __str__(self):

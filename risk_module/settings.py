@@ -201,6 +201,14 @@ CELERY_BEAT_SCHEDULE = {
         "task": "earthquake.tasks.import_earthquake_data",
         "schedule": crontab(minute=0, hour=0),  # This task execute daily at 12 AM (UTC)
     },
+    "create_pdc_data": {
+        "task": "earthquake.tasks.create_pdc_data",
+        "schedule": crontab(minute=0, hour=0),  # This task execute daily at 12 AM (UTC)
+    },
+    "create_pdc_displacement": {
+        "task": "earthquake.tasks.create_pdc_displacement",
+        "schedule": crontab(minute=0, hour=0),  # This task execute daily at 12 AM (UTC)
+    },
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
