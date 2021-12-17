@@ -12,7 +12,7 @@ from oddrin.models import (
     PdcDisplacement,
     Pdc,
 )
-from ipc.serializers import CountrySerializer
+from ipc.serializers import CountrySerializer, GlobalDisplacementSerializer, ThinkHazardInformationSerializer
 from oddrin.scripts.create_raster_tile import create_raster_tile
 
 

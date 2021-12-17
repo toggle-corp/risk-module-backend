@@ -387,12 +387,14 @@ class PdcDisplacement(models.Model):
         Pdc, on_delete=models.CASCADE,
         verbose_name=_('pdc')
     )
-    population_exposure = models.FloatField(
+    population_exposure = models.JSONField(
         null=True, blank=True,
+        default=None,
         verbose_name=_('population exposure')
     )
-    capital_exposure = models.FloatField(
+    capital_exposure = models.JSONField(
         null=True, blank=True,
+        default=None,
         verbose_name=_('capital exposure')
     )
 

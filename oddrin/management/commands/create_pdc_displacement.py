@@ -36,8 +36,8 @@ class Command(BaseCommand):
                                 c_data = {
                                     'country': Country.objects.filter(iso3=d['country'].lower()).first(),
                                     'hazard_type': hazard_type,
-                                    'population_exposure': d['population']['total']['value'],
-                                    'capital_exposure': d['capital']['total']['value'],
+                                    'population_exposure': d['population'],
+                                    'capital_exposure': d['capital'],
                                     'pdc': Pdc.objects.get(uuid=uuid)
                                 }
                                 PdcDisplacement.objects.get_or_create(**c_data)
